@@ -13,7 +13,7 @@ Welcome to **ForexWizards**, a comprehensive platform for Forex traders to enhan
 ## 🚀 Live Demo
 
 Check out the live version of ForexWizards here:  
-**[ForexWizards Live Demo] forexwizrads.pro**
+**[ForexWizards Live Demo] ([forexwizrads.pro](https://ahmed9088.github.io/ForexWizards-Website/))**
 
 ## 📥 Installation
 
