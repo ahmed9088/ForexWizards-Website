@@ -19,6 +19,8 @@
   --mesh-1: rgba(0, 255, 157, 0.15);
   --mesh-2: rgba(112, 0, 255, 0.15);
   --mesh-3: rgba(0, 212, 255, 0.15);
+  --spotlight-x: 50%;
+  --spotlight-y: 50%;
 }
 
 /* --- 2. RESET & BASE --- */
@@ -119,6 +121,32 @@ section {
   }
 }
 
+/* Premium Noise Texture Overlay */
+.about-details::after,
+.feature-box::after,
+.bento-item::after,
+.membership-plan::after,
+.contact-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+/* Reactive Lighting (Spotlight) */
+.feature-box,
+.bento-item,
+.membership-plan {
+  background: radial-gradient(circle at var(--spotlight-x) var(--spotlight-y), rgba(255, 255, 255, 0.06) 0%, var(--bg-surface) 60%);
+}
+
 /* Header & Nav */
 #header {
   position: fixed;
@@ -158,6 +186,14 @@ section {
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 1px;
+}
+
+/* Trendy Lucide Icon Styles */
+[data-lucide] {
+  stroke-width: 1.5px;
+  width: 2.5rem;
+  height: 2.5rem;
+  transition: var(--transition);
 }
 
 /* Buttons */
@@ -226,6 +262,7 @@ section {
   color: transparent;
   -webkit-text-stroke: 1px rgba(255, 255, 255, 0.05);
   white-space: nowrap;
+  mask-image: linear-gradient(to right, transparent, black 50%, transparent);
 }
 
 .hero-section h1 {
@@ -233,7 +270,7 @@ section {
   font-weight: 800;
   line-height: 1;
   margin-bottom: 30px;
-  background: linear-gradient(to bottom, #fff 40%, rgba(255, 255, 255, 0.5) 100%);
+  background: linear-gradient(170deg, #fff 40%, rgba(255, 255, 255, 0.3) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -253,20 +290,20 @@ section {
 
 .hero-visual img {
   width: 100%;
-  max-width: 550px;
-  animation: float 6s ease-in-out infinite;
-  filter: drop-shadow(0 0 50px rgba(0, 255, 157, 0.1));
+  max-width: 600px;
+  animation: float 8s ease-in-out infinite;
+  filter: drop-shadow(0 0 80px rgba(0, 255, 157, 0.2));
 }
 
 @keyframes float {
 
   0%,
   100% {
-    transform: translateY(0);
+    transform: translateY(0) rotate(0deg);
   }
 
   50% {
-    transform: translateY(-20px);
+    transform: translateY(-30px) rotate(2deg);
   }
 }
 
@@ -281,14 +318,15 @@ section {
   border: 1px solid var(--bg-surface-border);
   padding: 80px;
   border-radius: 64px;
+  overflow: hidden;
 }
 
 .about-title.enlarged {
-  font-size: 4rem;
+  font-size: 4.5rem;
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1;
   margin-bottom: 30px;
-  background: linear-gradient(135deg, #fff 0%, var(--text-muted) 100%);
+  background: linear-gradient(135deg, #fff 0%, var(--secondary) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -298,7 +336,7 @@ section {
   border-radius: 40px;
   box-shadow: 0 30px 100px rgba(0, 0, 0, 0.5);
   transition: var(--transition);
-  max-width: 100%;
+  max-width: 80%;
 }
 
 .about-details:hover .about-image img {
@@ -315,6 +353,7 @@ section {
   transition: var(--transition);
   height: 100%;
   perspective: 1000px;
+  overflow: hidden;
 }
 
 .feature-box:hover {
@@ -323,10 +362,10 @@ section {
 }
 
 .feature-box i {
-  font-size: 3rem;
   color: var(--primary);
   margin-bottom: 25px;
   display: block;
+  filter: drop-shadow(0 0 10px var(--primary-glow));
 }
 
 /* Metrics / Bento */
@@ -344,6 +383,7 @@ section {
   border-radius: 32px;
   padding: 30px;
   transition: var(--transition);
+  overflow: hidden;
 }
 
 .bento-item.large {
@@ -360,10 +400,23 @@ section {
 }
 
 .bento-item .count-digit {
-  font-size: 4rem;
+  font-size: 4.5rem;
   font-weight: 800;
+  color: #fff;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.bento-item .count-digit span {
   color: var(--primary);
-  text-shadow: 0 0 20px var(--primary-glow);
+  text-shadow: 0 0 30px var(--primary-glow);
+}
+
+.bento-item i {
+  color: var(--secondary);
+  margin-bottom: 15px;
+  width: 3rem;
+  height: 3rem;
 }
 
 /* Pricing */
@@ -375,17 +428,26 @@ section {
   border-radius: 48px;
   transition: var(--transition);
   height: 100%;
+  overflow: hidden;
 }
 
 .membership-plan.popular {
   border-color: var(--primary);
-  background: rgba(0, 255, 157, 0.02);
+  background: rgba(0, 255, 157, 0.03);
 }
 
 .plan-price .section-head {
-  font-size: 3.5rem;
-  font-weight: 800;
+  font-size: 4rem;
+  font-weight: 900;
   color: var(--primary);
+  text-shadow: 0 0 20px var(--primary-glow);
+}
+
+.membership-plan i {
+  color: var(--primary);
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 15px;
 }
 
 /* Contact */
@@ -396,6 +458,7 @@ section {
   backdrop-filter: var(--glass-2);
   padding: 80px;
   border-radius: 64px;
+  overflow: hidden;
 }
 
 .contact-ideas {
@@ -404,6 +467,7 @@ section {
   line-height: 1;
   color: var(--primary);
   margin: 20px 0;
+  text-shadow: 0 0 40px var(--primary-glow);
 }
 
 .contact-form input,
@@ -411,21 +475,35 @@ section {
   width: 100%;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--bg-surface-border);
-  padding: 15px;
-  border-radius: 12px;
+  padding: 18px;
+  border-radius: 16px;
   color: #fff;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  transition: var(--transition);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--primary);
+  background: rgba(255, 255, 255, 0.1);
+  outline: none;
 }
 
 .contact-submit-btn {
   background: var(--primary);
   color: #000;
   border: none;
-  padding: 15px 40px;
+  padding: 20px 50px;
   border-radius: 50px;
-  font-weight: 700;
+  font-weight: 800;
   cursor: pointer;
   transition: var(--transition);
+  box-shadow: 0 10px 30px var(--primary-glow);
+}
+
+.contact-submit-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px var(--primary-glow);
 }
 
 /* Footer */
@@ -438,15 +516,28 @@ section {
   font-size: 1.2rem;
   font-weight: 800;
   margin-bottom: 25px;
+  color: #fff;
 }
 
 .footer a {
   color: var(--text-muted);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
 }
 
 .footer a:hover {
   color: var(--primary);
+}
+
+.footer [data-lucide] {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* back to top */
+.back-to-top [data-lucide] {
+  width: 2rem;
+  height: 2rem;
+  color: #000;
 }
 
 /* --- 5. RESPONSIVE --- */
@@ -476,7 +567,7 @@ section {
 
   .mobile-nav-toggle {
     display: block;
-    font-size: 2rem;
+    font-size: 2.5rem;
     color: #fff;
     cursor: pointer;
   }

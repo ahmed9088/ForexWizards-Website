@@ -2,7 +2,7 @@
  * ForexWizards Main Interactions
  ************************************************************/
 
-(function() {
+(function () {
   "use strict";
 
   /**
@@ -57,37 +57,14 @@
   /**
    * Mobile nav toggle
    */
-  on('click', '.mobile-nav-toggle', function(e) {
+  on('click', '.mobile-nav-toggle', function (e) {
     select('#navbar').classList.toggle('navbar-mobile')
-    this.classList.toggle('bi-list')
-    this.classList.toggle('bi-x')
+    const icon = this.getAttribute('data-lucide') === 'menu' ? 'x' : 'menu';
+    this.setAttribute('data-lucide', icon);
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
   })
-
-  /**
-   * Back to top button
-   */
-  let backtotop = select('.back-to-top')
-  if (backtotop) {
-    const toggleBacktotop = () => {
-      if (window.scrollY > 100) {
-        backtotop.classList.add('active')
-      } else {
-        backtotop.classList.remove('active')
-      }
-    }
-    window.addEventListener('load', toggleBacktotop)
-    onscroll(document, toggleBacktotop)
-  }
-
-  /**
-   * Mobile nav dropdowns activate
-   */
-  on('click', '.navbar .dropdown > a', function(e) {
-    if (select('#navbar').classList.contains('navbar-mobile')) {
-      e.preventDefault()
-      this.nextElementSibling.classList.toggle('dropdown-active')
-    }
-  }, true)
 
   /**
    * Testimonials slider
@@ -108,15 +85,39 @@
   });
 
   /**
+   * Reactive Spotlight Lighting
+   */
+  const handleSpotlight = (e) => {
+    const cards = document.querySelectorAll('.feature-box, .bento-item, .membership-plan');
+    cards.forEach(card => {
+      const rect = card.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      card.style.setProperty('--spotlight-x', `${x}%`);
+      card.style.setProperty('--spotlight-y', `${y}%`);
+    });
+  };
+  window.addEventListener('mousemove', handleSpotlight);
+
+  /**
    * Animation on scroll
    */
   window.addEventListener('load', () => {
-    AOS.init({
-      duration: 1000,
-      easing: 'ease-in-out',
-      once: true,
-      mirror: false
-    })
+    if (typeof AOS !== 'undefined') {
+      AOS.init({
+        duration: 1000,
+        easing: 'ease-in-out',
+        once: true,
+        mirror: false
+      });
+    }
+  });
+
+  // Initial Lucide icons create
+  window.addEventListener('load', () => {
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
   });
 
 })()
