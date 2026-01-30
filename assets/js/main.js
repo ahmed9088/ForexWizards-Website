@@ -1,41 +1,6 @@
-/**
-* Template Name: SoftLand
-* Updated: May 30 2023 with Bootstrap v5.3.0
-* Template URL: https://bootstrapmade.com/softland-bootstrap-app-landing-page-template/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
-
-
-var modal = document.getElementById("myModal");
-var span = document.getElementsByClassName("close")[0];
-
-// Function to open the modal
-function openModal() {
-  modal.style.display = "block";
-  document.body.style.overflow = "hidden"; // Prevent scrolling
-}
-
-// Function to close the modal
-function closeModal() {
-  modal.style.display = "none";
-  document.body.style.overflow = "auto"; // Enable scrolling
-}
-
-// Open the modal after 10 seconds
-setTimeout(openModal, 10000);
-
-// Close the modal when close button is clicked
-span.onclick = function() {
-  closeModal();
-};
-
-// Close the modal when clicking outside of it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    closeModal();
-  }
-};
+/************************************************************
+ * ForexWizards Main Interactions
+ ************************************************************/
 
 (function() {
   "use strict";
