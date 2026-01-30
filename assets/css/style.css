@@ -164,6 +164,14 @@ section {
   padding: 15px 0;
 }
 
+.mobile-nav-toggle {
+  display: none;
+}
+
+#header .container {
+  height: 80px;
+}
+
 .logo h3 a {
   font-weight: 800;
   font-size: 1.5rem;
@@ -559,10 +567,36 @@ section {
 }
 
 /* back to top */
+.back-to-top {
+  position: fixed;
+  visibility: hidden;
+  opacity: 0;
+  right: 25px;
+  bottom: 25px;
+  z-index: 996;
+  background: var(--primary);
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  transition: all 0.4s;
+  box-shadow: 0 0 20px var(--primary-glow);
+}
+
+.back-to-top.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.back-to-top:hover {
+  background: #fff;
+  transform: translateY(-5px);
+}
+
 .back-to-top [data-lucide] {
-  width: 2rem;
-  height: 2rem;
+  width: 1.5rem;
+  height: 1.5rem;
   color: #000;
+  stroke-width: 3px;
 }
 
 /* --- 5. RESPONSIVE --- */
@@ -637,7 +671,9 @@ section {
     display: block;
     color: #fff;
     cursor: pointer;
-    z-index: 99999;
+    z-index: 9999;
+    font-size: 2.5rem;
+    line-height: 0;
   }
 
   .mobile-nav-toggle[data-lucide="x"] {
