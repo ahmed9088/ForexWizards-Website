@@ -59,12 +59,28 @@
    */
   on('click', '.mobile-nav-toggle', function (e) {
     select('#navbar').classList.toggle('navbar-mobile')
-    const icon = this.getAttribute('data-lucide') === 'menu' ? 'x' : 'menu';
-    this.setAttribute('data-lucide', icon);
+    const currentIcon = this.getAttribute('data-lucide');
+    this.setAttribute('data-lucide', currentIcon === 'menu' ? 'x' : 'menu');
     if (typeof lucide !== 'undefined') {
       lucide.createIcons();
     }
   })
+
+  /**
+   * Back to top button
+   */
+  let backtotop = select('.back-to-top')
+  if (backtotop) {
+    const toggleBacktotop = () => {
+      if (window.scrollY > 100) {
+        backtotop.classList.add('active')
+      } else {
+        backtotop.classList.remove('active')
+      }
+    }
+    window.addEventListener('load', toggleBacktotop)
+    onscroll(document, toggleBacktotop)
+  }
 
   /**
    * Testimonials slider

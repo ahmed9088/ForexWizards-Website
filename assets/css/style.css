@@ -186,6 +186,31 @@ section {
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 1px;
+  position: relative;
+  transition: var(--transition);
+}
+
+.navbar a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: var(--primary);
+  transition: var(--transition);
+  box-shadow: 0 0 10px var(--primary-glow);
+}
+
+.navbar a:hover::after,
+.navbar a.active::after {
+  width: 100%;
+}
+
+.navbar a:hover,
+.navbar a.active {
+  color: var(--primary);
+  text-shadow: 0 0 10px var(--primary-glow);
 }
 
 /* Trendy Lucide Icon Styles */
@@ -565,11 +590,60 @@ section {
     display: none;
   }
 
+  .navbar-mobile {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(2, 2, 5, 0.98);
+    backdrop-filter: blur(20px);
+    z-index: 9999;
+    transition: var(--transition);
+  }
+
+  .navbar-mobile ul {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 55px;
+    right: 15px;
+    bottom: 15px;
+    left: 15px;
+    padding: 10px 0;
+    border-radius: 20px;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--bg-surface-border);
+    overflow-y: auto;
+    transition: var(--transition);
+    gap: 10px;
+  }
+
+  .navbar-mobile a {
+    padding: 15px 20px;
+    font-size: 1.1rem;
+    color: #fff;
+    width: 100%;
+    text-align: center;
+  }
+
+  .navbar-mobile .extra-buttons {
+    flex-direction: column;
+    width: 100%;
+    padding: 20px;
+  }
+
   .mobile-nav-toggle {
     display: block;
-    font-size: 2.5rem;
     color: #fff;
     cursor: pointer;
+    z-index: 99999;
+  }
+
+  .mobile-nav-toggle[data-lucide="x"] {
+    position: fixed;
+    top: 25px;
+    right: 25px;
   }
 
   .bento-grid {
